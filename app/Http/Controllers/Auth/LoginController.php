@@ -50,14 +50,16 @@ class LoginController extends Controller
         $credentials = ['username' => $input['username'], 'password' => $input['password']];
 
         if (Auth()->guard('web')->attempt($credentials, false, false)) {
-            if (auth()->user()->is_kasir == 1) {
-                return redirect()->route('kasir.home');
+            if (auth()->user()->jabatan == 'Kasir') {
+                return redirect()->route('kasir.dashboard');
+            } elseif (auth()->user()->jabatan == 'Manager') {
+                return redirect()->route('manager.dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('dapur.dashboard');
             }
         } else {
             return redirect()->route('login')
-                ->with('error', 'Username dan Password Salah!');
+                ->with('error', 'Username atau Password yang anda masukkan salah!');
         }
     }
 }

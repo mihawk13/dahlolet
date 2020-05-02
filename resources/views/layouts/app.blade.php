@@ -1,80 +1,74 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @include('layouts.head')
+    @yield('head')
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+    <!-- Top Bar Start -->
+    @include('layouts.topbar')
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <!-- Top Bar End -->
+    <div class="page-wrapper-img">
+        <div class="page-wrapper-img-inner">
+            <div class="sidebar-user media">
+                <img src="{{ asset('images/users/user-1.jpg') }}" alt="user" class="rounded-circle img-thumbnail mb-1">
+                <span class="online-icon"><i class="mdi mdi-record text-success"></i></span>
+                <div class="media-body">
+                    <h5 class="text-light">{{ Auth::user()->nama }}</h5>
+                    <ul class="list-unstyled list-inline mb-0 mt-2">
+                        <li class="list-inline-item">
+                            <a href="#" class=""><i class="mdi mdi-account text-light"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class=""><i class="mdi mdi-power text-danger"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <!-- Page-Title -->
+            @yield('breadcrumb')            
+            <!--end row-->
+            <!-- end page title end breadcrumb -->
+        </div>
+        <!--end page-wrapper-img-inner-->
     </div>
+    <!--end page-wrapper-img-->
+
+    <div class="page-wrapper">
+        <div class="page-wrapper-inner">
+
+            <!-- Left Sidenav -->
+            @include('layouts.sidebar')
+            <!-- end left-sidenav-->
+
+            <!-- Page Content-->
+            <div class="page-content">
+                <div class="container-fluid">
+                    @yield('content')
+                    <!--end row-->
+                </div><!-- container -->
+
+                <footer class="footer text-center text-sm-left">
+                    &copy; 2020 Dahlolet <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i
+                            class="mdi mdi-heart text-danger"></i> Yogi</span>
+                </footer>
+            </div>
+            <!-- end page content -->
+        </div>
+        <!--end page-wrapper-inner -->
+    </div>
+    <!-- end page-wrapper -->
+
+    @include('layouts.body')
+    @yield('body')
+
 </body>
+
 </html>

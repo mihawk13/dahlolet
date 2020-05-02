@@ -17,14 +17,21 @@ class CreateUsersSeeder extends Seeder
                 'telp' => '081234567890',
                 'username' => 'kasir',
                 'password' => bcrypt('kasir'),
-                'is_kasir' => '1',
+                'jabatan' => 'Kasir',
             ],
             [
-                'nama' => 'User',
+                'nama' => 'Manager',
                 'telp' => '087763123321',
                 'username' => 'manager',
                 'password' => bcrypt('manager'),
-                'is_kasir' => '0',
+                'jabatan' => 'Manager',
+            ],
+            [
+                'nama' => 'Dapur',
+                'telp' => '087763321321',
+                'username' => 'dapur',
+                'password' => bcrypt('dapur'),
+                'jabatan' => 'Dapur',
             ],
         ];
 

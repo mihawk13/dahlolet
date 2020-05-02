@@ -23,11 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
-    }
-
-    public function kasirHome()
-    {
-        return view('kasirHome');
+        //cek sudah login / belum
+        if (auth()->user()->jabatan == 'Kasir') {
+            return redirect()->route('kasir.dashboard');
+        } elseif (auth()->user()->jabatan == 'Manager') {
+            return redirect()->route('manager.dashboard');
+        } else {
+            return redirect()->route('dapur.dashboard');
+        }
+        return view('auth.login');
     }
 }
