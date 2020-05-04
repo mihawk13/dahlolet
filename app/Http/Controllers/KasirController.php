@@ -99,15 +99,6 @@ class KasirController extends Controller
 
     public function ubahMenu(Request $request)
     {
-        // cek apakah gambar diupload / tidak blm bisa
-        // $gambar = $_FILES['gambar']['size'];
-        // if ($request->hasFile('gambar')) {
-        //     $check = $_FILES["gambar"]["size"];
-        //     return redirect()->back()->with('berhasil', $check);
-        // } else {
-        //     return redirect()->back()->with('gagal', 'Tidak ada gambar!');
-        // }
-
         try {
             if ($request->hasFile('gambar')) {
                 $this->validate($request, [
@@ -143,6 +134,25 @@ class KasirController extends Controller
             }
 
             return redirect()->back()->with('berhasil', 'Data menu berhasil diubah!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
+    }
+
+    public function setStatus(Request $request)
+    {
+        try {
+            if ($request->status == 'Aktif') {
+                DB::table('menu')->where('id_menu', $request->id)->update([                
+                    'status' => 1
+                ]);
+            } else {
+                DB::table('menu')->where('id_menu', $request->id)->update([                
+                    'status' => 0
+                ]);
+            }
+
+            return redirect()->back()->with('berhasil', 'Status berhasil diubah!');
         } catch (\Exception $e) {
             return redirect()->back()->with('gagal', $e->getMessage());
         }

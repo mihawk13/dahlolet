@@ -84,7 +84,6 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -95,7 +94,6 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kategori->nama }}</td>
-                            <td>{{ $status = ($kategori->status == 0) ? "Tidak Aktif" : "Aktif" }}</td>
                             <td>
                                 <center>
                                     <a type="button" style="color:white" class="btn btn-warning btn-sm"
@@ -128,19 +126,6 @@
                                                 <input name="nama" type="text" class="form-control"
                                                     placeholder="Masukkan Nama Kategori" required
                                                     value="{{ $kategori->nama }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Status</label>
-                                                <select name="status" class="form-control">
-                                                    <option value="">--Pilih Status--</option>
-                                                    @if ($kategori->status = 1)
-                                                    <option selected value="1">Aktif</option>
-                                                    <option value="0">Tidak Aktif</option>
-                                                    @else
-                                                    <option value="1">Aktif</option>
-                                                    <option selected value="0">Tidak Aktif</option>
-                                                    @endif
-                                                </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

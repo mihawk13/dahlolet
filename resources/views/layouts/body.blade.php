@@ -9,8 +9,8 @@
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <!-- Responsive examples -->
-<script src="{{ asset('vendor/datatables/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/responsive.bootstrap4.min.js') }}"></script>
+{{-- <script src="{{ asset('vendor/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendor/datatables/responsive.bootstrap4.min.js') }}"></script> --}}
 
 {{-- <script src="{{ asset('vendor/moment/moment.js') }}"></script>
 <script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>

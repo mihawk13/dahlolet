@@ -42,7 +42,7 @@
             <a href="javascript: void(0);"><i class="mdi mdi-cart-arrow-right"></i><span>Pesanan</span><span
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="charts-apex.html">Menu</a></li>
+                <li><a href="{{ route('getListMenu') }}">Daftar Menu</a></li>
                 <li><a href="charts-morris.html">Daftar Pesanan</a></li>
                 <li><a href="charts-chartist.html">Pesanan Selesai</a></li>
             </ul>

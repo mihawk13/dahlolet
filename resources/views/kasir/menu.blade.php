@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+@section('head')
+<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+<link href="{{ asset('vendor/isotope/isotope.css') }}" rel="stylesheet" />
+<link href="{{ asset('vendor/lightbox/css/lightbox.css') }}" rel="stylesheet" />
+@stop
 @section('breadcrumb')
 <div class="row">
     <div class="col-sm-12">
@@ -100,7 +104,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <table id="datatable" class="table table-bordered dt-responsive nowrap"
+                <table id="dataMenu" class="table table-bordered dt-responsive nowrap"
                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
@@ -108,7 +112,9 @@
                             <th>Kategori</th>
                             <th>Nama</th>
                             <th>Harga</th>
+                            <th>HideStatus</th>
                             <th>Status</th>
+                            <th>Gambar</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -120,8 +126,19 @@
                             <td>{{ $menu->id_menu }}</td>
                             <td>{{ $menu->kategori }}</td>
                             <td>{{ $menu->nama }}</td>
-                            <td>{{ $menu->harga }}</td>
+                            <td>Rp. {{ number_format($menu->harga) }}</td>
+                            <td>{{ $menu->status }}</td>
                             <td>{{ $status = ($menu->status == 0) ? "Tidak Aktif" : "Aktif" }}</td>
+                            <td>
+                                <center>
+                                    <div class="image-inner">
+                                        <a class="btn btn-sm btn-info" data-toggle="modal" data-placement="left"
+                                            title="{{ $menu->nama }}" href="{{ asset($menu->gambar) }}"
+                                            data-lightbox="gallery-group-1">
+                                            <span class="s-icon"><i class="fa fa-eye"></i></span></a>
+                                    </div>
+                                </center>
+                            </td>
                             <td>
                                 <center>
                                     <a type="button" style="color:white" class="btn btn-warning btn-sm"
@@ -129,10 +146,32 @@
                                         data-placement="left" title="Ubah Data Menu">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    @if ($menu->status == 0)
+                                    <a type="button" style="color:white" class="btn btn-success btn-sm"
+                                        data-toggle="tooltip" data-placement="left" title="Aktifkan Menu" href="{{ route('setStatus') }}" onclick="event.preventDefault(); document.getElementById('AktifMenu{{ $menu->id_menu }}').submit();">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <form id="AktifMenu{{ $menu->id_menu }}" action="{{ route('setStatus') }}" method="POST" style="display: none;">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input type="hidden" name="id" value="{{ $menu->id_menu }}">
+                                        <input type="hidden" name="status" value="Aktif">
+                                        @csrf
+                                    </form>
+                                    @else
+                                    <a type="button" style="color:white" class="btn btn-danger btn-sm"
+                                        data-toggle="tooltip" data-placement="left" title="Non Aktifkan Menu" href="{{ route('setStatus') }}" onclick="event.preventDefault(); document.getElementById('NonAktifMenu{{ $menu->id_menu }}').submit();">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                    <form id="NonAktifMenu{{ $menu->id_menu }}" action="{{ route('setStatus') }}" method="POST" style="display: none;">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input type="hidden" name="id" value="{{ $menu->id_menu }}">
+                                        <input type="hidden" name="status" value="NonAktif">
+                                        @csrf
+                                    </form>
+                                    @endif
                                 </center>
                             </td>
                         </tr>
-
                         <!-- modal ubah -->
                         <div class="modal fade ubah{{ $menu->id_menu }}" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -157,11 +196,12 @@
                                                 <select name="kategori" class="form-control">
                                                     <option value="">--Pilih Kategori--</option>
                                                     @foreach ($kategori as $kat)
-                                                        @if($menu->id_kategori == $kat->id_kategori)
-                                                        <option selected value="{{ $menu->id_kategori }}">{{ $menu->kategori }}</option>
-                                                        @else
-                                                        <option value="{{ $kat->id_kategori }}">{{ $kat->nama }}</option>
-                                                        @endif
+                                                    @if($menu->id_kategori == $kat->id_kategori)
+                                                    <option selected value="{{ $menu->id_kategori }}">
+                                                        {{ $menu->kategori }}</option>
+                                                    @else
+                                                    <option value="{{ $kat->id_kategori }}">{{ $kat->nama }}</option>
+                                                    @endif
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -200,4 +240,23 @@
         </div>
     </div> <!-- end col -->
 </div> <!-- end row -->
+@endsection
+@section('body')
+<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+<script src="{{ asset('vendor/isotope/jquery.isotope.min.js') }}"></script>
+<script src="{{ asset('vendor/lightbox/js/lightbox.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataMenu').DataTable({
+            "order": [[ 4, "DESC" ]],
+            "columnDefs": [
+            {
+                "targets": [ 4 ],
+                "visible": false,
+                "searchable": false
+            }
+        ]
+        });
+    } );
+</script>
 @endsection

@@ -40,6 +40,9 @@ Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::get('/menu', 'KasirController@getMenu')->name('getMenu');
     Route::post('/menu', 'KasirController@postMenu')->name('postMenu');
     Route::patch('/menu', 'KasirController@ubahMenu')->name('ubahMenu');
+    Route::put('/menu', 'KasirController@setStatus')->name('setStatus');
+    // Daftar Menu
+    Route::get('/listmenu', 'KasirController@getListMenu')->name('getListMenu');
 });
 
 // Dashboard Manager
