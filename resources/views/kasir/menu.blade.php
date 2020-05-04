@@ -143,7 +143,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="{{ route('ubahMenu') }}" method="POST">
+                                    <form action="{{ route('ubahMenu') }}" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="_method" value="PATCH">
                                         @csrf
                                         <div class="modal-body">

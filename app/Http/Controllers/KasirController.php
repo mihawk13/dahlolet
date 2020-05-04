@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // use League\Flysystem\File;
 use Illuminate\Support\Facades\File;
-use Illuminate\Http\UploadedFile;
+// use Illuminate\Http\UploadedFile;
 use Image;
 // use Input;
 
@@ -100,50 +100,51 @@ class KasirController extends Controller
     public function ubahMenu(Request $request)
     {
         // cek apakah gambar diupload / tidak blm bisa
-        // if ($request->file('gambar')->size) {
-            // $check = $_FILES["gambar"]["size"];
-            // return redirect()->back()->with('berhasil', $check);
+        // $gambar = $_FILES['gambar']['size'];
+        // if ($request->hasFile('gambar')) {
+        //     $check = $_FILES["gambar"]["size"];
+        //     return redirect()->back()->with('berhasil', $check);
         // } else {
         //     return redirect()->back()->with('gagal', 'Tidak ada gambar!');
         // }
 
-        // try {
-        //     if ($request->hasFile('gambar')) {
-        //         $this->validate($request, [
-        //             'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //         ]);
-        //         // hapus gambar menu sebelumnya
-        //         $menu = DB::table('menu')->where('id_menu', $request->id)->first();
-        //         unlink(public_path($menu->gambar));
-        //         File::unlink(public_path($menu->gambar));
+        try {
+            if ($request->hasFile('gambar')) {
+                $this->validate($request, [
+                    'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ]);
+                // hapus gambar menu sebelumnya
+                $menu = DB::table('menu')->where('id_menu', $request->id)->first();
+                unlink(public_path($menu->gambar));
+                // File::unlink(public_path($menu->gambar));
 
-        //         $destinationPath = public_path('images\menu');
-        //         $image = $request->file('gambar');
-        //         $input['imagename'] = $request->id . '.' . $image->extension();
-        //         $img = Image::make($image->path());
-        //         $img->resize(500, 500, function ($constraint) {
-        //             $constraint->aspectRatio();
-        //         })->save($destinationPath . '\\' . $input['imagename']);
+                $destinationPath = public_path('images/menu');
+                $image = $request->file('gambar');
+                $input['imagename'] = $request->id . '.' . $image->extension();
+                $img = Image::make($image->path());
+                $img->resize(500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath . '/' . $input['imagename']);
 
-        //         $gambar = 'images/menu/' . $input['imagename'];
+                $gambar = 'images/menu/' . $input['imagename'];
 
-        //         DB::table('menu')->where('id_menu', $request->id)->update([
-        //             'id_kategori' => $request->kategori,
-        //             'nama' => $request->nama,
-        //             'harga' => $request->harga,
-        //             'gambar' => $gambar,
-        //         ]);
-        //     } else {
-        //         DB::table('menu')->where('id_menu', $request->id)->update([
-        //             'id_kategori' => $request->kategori,
-        //             'nama' => $request->nama,
-        //             'harga' => $request->harga,
-        //         ]);
-        //     }
+                DB::table('menu')->where('id_menu', $request->id)->update([
+                    'id_kategori' => $request->kategori,
+                    'nama' => $request->nama,
+                    'harga' => $request->harga,
+                    'gambar' => $gambar,
+                ]);
+            } else {
+                DB::table('menu')->where('id_menu', $request->id)->update([
+                    'id_kategori' => $request->kategori,
+                    'nama' => $request->nama,
+                    'harga' => $request->harga,
+                ]);
+            }
 
-        //     return redirect()->back()->with('berhasil', 'Data menu berhasil diubah!');
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->with('gagal', $e->getMessage());
-        // }
+            return redirect()->back()->with('berhasil', 'Data menu berhasil diubah!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
     }
 }
