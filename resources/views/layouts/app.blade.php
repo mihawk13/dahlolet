@@ -57,7 +57,7 @@
 
                 <footer class="footer text-center text-sm-left">
                     &copy; 2020 Dahlolet <span class="text-muted d-none d-sm-inline-block float-right">Crafted with <i
-                            class="mdi mdi-heart text-danger"></i> Yogi</span>
+                            class="mdi mdi-heart text-danger"></i> by Yogi</span>
                 </footer>
             </div>
             <!-- end page content -->

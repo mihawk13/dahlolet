@@ -43,6 +43,12 @@ Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::put('/menu', 'KasirController@setStatus')->name('setStatus');
     // Daftar Menu
     Route::get('/listmenu', 'KasirController@getListMenu')->name('getListMenu');
+    Route::post('/listmenu', 'KasirController@cariKategori')->name('cariKategori');
+    Route::patch('/listmenu', 'KasirController@cariMenu')->name('cariMenu');
+
+    Route::post('/masukKeranjang', 'KasirController@masukKeranjang')->name('masukKeranjang');
+    Route::post('/kurangiKeranjang', 'KasirController@kurangiKeranjang')->name('kurangiKeranjang');
+    Route::post('/tambahKeranjang', 'KasirController@tambahKeranjang')->name('tambahKeranjang');
 });
 
 // Dashboard Manager

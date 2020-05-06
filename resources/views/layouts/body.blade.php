@@ -5,6 +5,8 @@
 <script src="{{ asset('js/waves.min.js') }}"></script>
 <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
 
+<script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+
 <!-- Required datatable js -->
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -27,7 +29,10 @@
     $(document).ready(function() {
         $('#datatable').DataTable();
 
-		$('.alert').delay(3000).fadeOut(350);
+        $('.alert').delay(3000).fadeOut(350);
+        
+        // Select2
+        $(".select2").select2();
         // $(document).ready(function() {
         //     $('#datatable2').DataTable();  
         // } );

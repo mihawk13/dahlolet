@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 // use Illuminate\Http\UploadedFile;
 use Image;
-// use Input;
+use App\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class KasirController extends Controller
 {
@@ -47,7 +48,7 @@ class KasirController extends Controller
             return redirect()->back()->with('gagal', $e->getMessage());
         }
     }
-    // Menu
+    // Add Menu
     public function getMenu()
     {
         $res = DB::select("SELECT MAX(id_menu) As maxKode FROM menu");
@@ -78,9 +79,8 @@ class KasirController extends Controller
             $image = $request->file('gambar');
             $input['imagename'] = $request->id . '.' . $image->extension();
             $img = Image::make($image->path());
-            $img->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath . '\\' . $input['imagename']);
+            $img->resize(300, 500, function () {
+            })->save($destinationPath . '/' . $input['imagename']);
 
             $gambar = 'images/menu/' . $input['imagename'];
             DB::table('menu')->insert([
@@ -113,8 +113,7 @@ class KasirController extends Controller
                 $image = $request->file('gambar');
                 $input['imagename'] = $request->id . '.' . $image->extension();
                 $img = Image::make($image->path());
-                $img->resize(500, 500, function ($constraint) {
-                    $constraint->aspectRatio();
+                $img->resize(500, 500, function () {
                 })->save($destinationPath . '/' . $input['imagename']);
 
                 $gambar = 'images/menu/' . $input['imagename'];
@@ -143,11 +142,11 @@ class KasirController extends Controller
     {
         try {
             if ($request->status == 'Aktif') {
-                DB::table('menu')->where('id_menu', $request->id)->update([                
+                DB::table('menu')->where('id_menu', $request->id)->update([
                     'status' => 1
                 ]);
             } else {
-                DB::table('menu')->where('id_menu', $request->id)->update([                
+                DB::table('menu')->where('id_menu', $request->id)->update([
                     'status' => 0
                 ]);
             }
@@ -156,5 +155,92 @@ class KasirController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('gagal', $e->getMessage());
         }
+    }
+    //  List Menu
+    public function getListMenu()
+    {
+        $idkat = 0;
+        $cari = '';
+        $kategori = DB::table('kategori')->get();
+        $menus = DB::table('menu')
+            ->leftjoin('keranjang_belanja', 'menu.id_menu', '=', 'keranjang_belanja.id_menu')
+            ->select('menu.*', 'keranjang_belanja.qty')->where('status', 1)
+            ->orderBy('id_menu')->get();
+            return view('kasir.daftarmenu', compact('menus', 'kategori', 'idkat', 'cari'));
+    }
+
+    public function masukKeranjang(Request $request)
+    {
+        try {
+            if ($request->qty == '0') {
+                $this->tambahKeranjang($request);
+            } else {
+                $krnj = new Cart;
+                $krnj->id_user = Auth::user()->id;
+                $krnj->id_menu = $request->id;
+                $krnj->qty = 1;
+                $krnj->harga = $request->harga;
+                $krnj->save();
+            }
+
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
+    }
+
+    public function kurangiKeranjang(Request $request)
+    {
+        try {
+            $qty = $request->qty - 1;
+            Cart::where('id_menu', $request->id)
+                ->where('id_user', Auth::user()->id)
+                ->update(['qty' => $qty]);
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
+    }
+
+    public function tambahKeranjang(Request $request)
+    {
+        try {
+            $qty = $request->qty + 1;
+            Cart::where('id_menu', $request->id)
+                ->where('id_user', Auth::user()->id)
+                ->update(['qty' => $qty]);
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('gagal', $e->getMessage());
+        }
+    }
+
+    public function cariKategori(Request $request)
+    {
+        $idkat = $request->idkat;
+        $cari = '';
+        $kategori = DB::table('kategori')->get();
+        $menus = DB::table('menu')
+            ->leftjoin('keranjang_belanja', 'menu.id_menu', '=', 'keranjang_belanja.id_menu')
+            ->select('menu.*', 'keranjang_belanja.qty')->where('status', 1)
+            ->where('id_kategori', $idkat)
+            ->orderBy('id_menu')->get();
+            return view('kasir.daftarmenu', compact('menus', 'kategori', 'idkat', 'cari'));
+    }
+
+    public function cariMenu(Request $request)
+    {
+        $idkat = 0;
+        $cari = $request->cari;
+        $kategori = DB::table('kategori')->get();
+        $menus = DB::table('menu')
+            ->leftjoin('keranjang_belanja', 'menu.id_menu', '=', 'keranjang_belanja.id_menu')
+            ->select('menu.*', 'keranjang_belanja.qty')->where('status', 1)
+            ->where('menu.nama', 'LIKE', '%' . $cari . '%')
+            ->orderBy('id_menu')->get();
+        return view('kasir.daftarmenu', compact('menus', 'kategori', 'idkat', 'cari'));
     }
 }

@@ -13,7 +13,7 @@
 {{-- <link href="{{ asset('vendor/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 <!-- Responsive datatable examples -->
 {{-- <link href="{{ asset('vendor/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />  --}}
-
+<link href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- App css -->
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/icons.css') }}" rel="stylesheet" type="text/css" />
