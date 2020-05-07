@@ -7,7 +7,7 @@
         <li>
             <a href="/"><i class="mdi mdi-monitor"></i><span>Dashboard</span></a>
         </li>
-        @if (auth()->user()->jabatan == 'Manager')
+        @if (auth()->user()->jabatan == 'Admin')
         <li>
             <a href="{{ route('getUsers') }}"><i class="mdi mdi-clipboard-account-outline"></i><span>User</span></a>
         </li>

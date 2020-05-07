@@ -7,7 +7,7 @@
             <h4 class="page-title mb-2"><i class="mdi mdi-monitor-dashboard mr-2"></i>Dashboard</h4>
             <div class="">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Manager</a></li>
+                    <li class="breadcrumb-item"><a href="/">Admin</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </div>

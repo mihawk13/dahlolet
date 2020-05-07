@@ -65,7 +65,7 @@
             <h4 class="page-title mb-2"><i class="mdi mdi-clipboard-account-outline"></i> Data User</h4>
             <div class="">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Manager</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
                     <li class="breadcrumb-item active">User</li>
                 </ol>
             </div>

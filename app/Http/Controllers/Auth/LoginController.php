@@ -52,8 +52,8 @@ class LoginController extends Controller
         if (Auth()->guard('web')->attempt($credentials, false, false)) {
             if (auth()->user()->jabatan == 'Kasir') {
                 return redirect()->route('kasir.dashboard');
-            } elseif (auth()->user()->jabatan == 'Manager') {
-                return redirect()->route('manager.dashboard');
+            } elseif (auth()->user()->jabatan == 'Admin') {
+                return redirect()->route('admin.dashboard');
             } else {
                 return redirect()->route('dapur.dashboard');
             }

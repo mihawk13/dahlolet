@@ -6,22 +6,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 
-class ManagerController extends Controller
+class AdminController extends Controller
 {
     public function Dashboard()
     {
-        return view('manager.dashboard');
+        return view('admin.dashboard');
     }
     // Users
     public function getUsers()
     {
         $jabatan = array(
-            '0' => 'Manager',
+            '0' => 'Admin',
             '1' => 'Kasir',
             '2' => 'Dapur'
         );
         $users = DB::table('users')->get();
-        return view('manager.user', compact('users', 'jabatan'));
+        return view('admin.user', compact('users', 'jabatan'));
     }
 
     public function postUsers(Request $request)

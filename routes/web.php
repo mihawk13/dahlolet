@@ -51,11 +51,11 @@ Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::post('/tambahKeranjang', 'KasirController@tambahKeranjang')->name('tambahKeranjang');
 });
 
-// Dashboard Manager
-Route::middleware('isManager')->prefix('manager')->group(function () {
-    Route::get('/dashboard', 'ManagerController@Dashboard')->name('manager.dashboard');
+// Dashboard Admin
+Route::middleware('isAdmin')->prefix('admin')->group(function () {
+    Route::get('/dashboard', 'AdminController@Dashboard')->name('admin.dashboard');
     // Users
-    Route::get('/users', 'ManagerController@getUsers')->name('getUsers');
-    Route::post('/users', 'ManagerController@postUsers')->name('postUsers');
-    Route::patch('/users', 'ManagerController@ubahUsers')->name('ubahUsers');
+    Route::get('/users', 'AdminController@getUsers')->name('getUsers');
+    Route::post('/users', 'AdminController@postUsers')->name('postUsers');
+    Route::patch('/users', 'AdminController@ubahUsers')->name('ubahUsers');
 });

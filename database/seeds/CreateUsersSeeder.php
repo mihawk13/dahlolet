@@ -20,11 +20,11 @@ class CreateUsersSeeder extends Seeder
                 'jabatan' => 'Kasir',
             ],
             [
-                'nama' => 'Manager',
+                'nama' => 'Admin',
                 'telp' => '087763123321',
-                'username' => 'manager',
-                'password' => bcrypt('manager'),
-                'jabatan' => 'Manager',
+                'username' => 'admin',
+                'password' => bcrypt('admin'),
+                'jabatan' => 'Admin',
             ],
             [
                 'nama' => 'Dapur',

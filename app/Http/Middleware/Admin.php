@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 // use Auth;
 
-class Manager
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -24,7 +24,7 @@ class Manager
             return redirect()->route('login');
         }
 
-        if (auth()->user()->jabatan == 'Manager') {
+        if (auth()->user()->jabatan == 'Admin') {
             return $next($request);
         }
 

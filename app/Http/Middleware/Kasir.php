@@ -32,8 +32,8 @@ class Kasir
             return redirect()->route('dapur.dashboard');
         }
 
-        if (auth()->user()->jabatan == 'Manager') {
-            return redirect()->route('manager.dashboard');
+        if (auth()->user()->jabatan == 'Admin') {
+            return redirect()->route('admin.dashboard');
         }
         // return redirect('home')->with('error',"Kamu tidak punya akses disini!");
     }
