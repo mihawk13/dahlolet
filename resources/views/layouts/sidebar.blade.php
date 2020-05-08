@@ -42,20 +42,20 @@
             <a href="javascript: void(0);"><i class="mdi mdi-cart-arrow-right"></i><span>Pesanan</span><span
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="{{ route('getListMenu') }}">Daftar Menu</a></li>
-                <li><a href="charts-morris.html">Daftar Pesanan</a></li>
-                <li><a href="charts-chartist.html">Pesanan Selesai</a></li>
+                <li><a href="{{ route('getListMenu') }}">List Menu</a></li>
+                <li><a href="{{ route('getListPesanan') }}">List Pesanan <span id="badgeTotal2" class="badge badge-danger badge-pill float-right">{{ myHelper::getJmlPesanan() }}</span></a> </li>
+                <li><a href="#">Pesanan Selesai</a></li>
             </ul>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="javascript:void(0);"><i class="mdi mdi-ballot-recount"></i><span>Stock Opname</span><span
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li><a href="email-templates-basic.html">Data</a></li>
                 <li><a href="email-templates-alert.html">Tambah</a></li>
             </ul>
-        </li>
+        </li> --}}
 
         @endif
 

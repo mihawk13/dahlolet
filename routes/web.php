@@ -45,6 +45,9 @@ Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::get('/listmenu', 'KasirController@getListMenu')->name('getListMenu');
     Route::post('/listmenu', 'KasirController@cariKategori')->name('cariKategori');
     Route::patch('/listmenu', 'KasirController@cariMenu')->name('cariMenu');
+    Route::get('/listpesanan', 'KasirController@getListPesanan')->name('getListPesanan');
+    Route::post('listpesanan', 'KasirController@plusminusListPesanan');
+    Route::get('/listpesanan/{idmenu}', 'KasirController@hapusPesanan')->name('hapusPesanan');
 
     Route::post('/masukKeranjang', 'KasirController@masukKeranjang')->name('masukKeranjang');
     Route::post('/kurangiKeranjang', 'KasirController@kurangiKeranjang')->name('kurangiKeranjang');

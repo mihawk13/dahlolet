@@ -31,7 +31,7 @@
                 </li>
 
             </div>
-            <h4 class="page-title mb-2"><i class="mdi mdi-cart-arrow-right"></i> Daftar Menu</h4>
+            <h4 class="page-title mb-2"><i class="mdi mdi-cart-arrow-right"></i> List Menu</h4>
             <div class="">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Kasir</a></li>

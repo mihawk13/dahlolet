@@ -9,23 +9,24 @@
                     <img src="{{ asset('images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
                 </span>
                 <span>
-                    <img src="{{ asset('images/logo-dark.png') }}" alt="logo-large" class="logo-lg">
+                    <img src="{{ asset('images/dahlolet.png') }}" alt="logo-large" class="logo-lg">
                 </span>
             </a>
         </div>
 
         <ul class="list-unstyled topbar-nav float-right mb-0">
             {{-- keranjang --}}
+            @if (Auth::user()->jabatan !== 'Admin')
             <li class="dropdown">
-                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#"
-                    role="button" aria-haspopup="false" aria-expanded="false">
+                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect"  href="{{ route('getListPesanan') }}"
+                    role="button" >
                     <i class="mdi mdi-cart-arrow-right nav-icon"></i>
-                    <span class="badge badge-danger badge-pill noti-icon-badge">1</span>
+                    <a href="{{ route('getListPesanan') }}" id="badgeTotal" class="badge badge-danger badge-pill noti-icon-badge">{{ myHelper::getJmlPesanan() }}</a>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+                {{-- <div class="dropdown-menu dropdown-menu-right dropdown-lg">
                     <!-- item-->
                     <h6 class="dropdown-item-text">
-                        Keranjang (128)
+                        Keranjang ({{ myHelper::getJmlPesanan() }})
                     </h6>
                     <div class="slimscroll notification-list">
                         <!-- item-->
@@ -40,8 +41,9 @@
                     <a href="javascript:void(0);" class="dropdown-item text-center text-primary">
                         View all <i class="fi-arrow-right"></i>
                     </a>
-                </div>
+                </div> --}}
             </li>
+            @endif
             {{-- keranjang --}}
 
             <li class="dropdown">

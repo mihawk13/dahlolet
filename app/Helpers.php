@@ -2,7 +2,7 @@
 namespace App;
  
 use Illuminate\Support\Facades\Auth;
-// use DB;
+use App\Cart;
 
 
  
@@ -15,10 +15,14 @@ class Helpers {
 
     
 
-    // public static function getJmlPesertaKegiatan($idkeg) {
-    //     $jml = Peserta_Kegiatan::where('ID_Kegiatan', $idkeg)->where('Status', 'Disetujui')->count();
-    //     return $jml;
-    // }
+    public static function getJmlPesanan() {
+        $jml = Cart::where('id_user', Auth::user()->id)->where('qty', '>', 0)->get();
+        $qty = 0;
+        foreach ($jml as $item) {
+            $qty += $item->qty;
+        }
+        return $qty;
+    }
 
     // public static function getJmlPendaftarKegiatan($idkeg) {
     //     $jml = Peserta_Kegiatan::where('ID_Kegiatan', $idkeg)->count();
