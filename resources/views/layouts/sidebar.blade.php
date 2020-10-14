@@ -12,7 +12,7 @@
             <a href="{{ route('getUsers') }}"><i class="mdi mdi-clipboard-account-outline"></i><span>User</span></a>
         </li>
 
-        <li>
+        {{-- <li>
             <a href="javascript: void(0);"><i class="mdi mdi-book-open-page-variant"></i><span>Laporan</span><span
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
@@ -27,7 +27,7 @@
                 <li><a href="page-faq.html">FAQs</a></li>
                 <li><a href="page-gallery.html">Gallery</a></li>
             </ul>
-        </li>
+        </li> --}}
         @endif
         @if (auth()->user()->jabatan == 'Kasir')
         <li>
@@ -43,20 +43,16 @@
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li><a href="{{ route('getListMenu') }}">List Menu</a></li>
-                <li><a href="{{ route('getListPesanan') }}">List Pesanan <span id="badgeTotal2" class="badge badge-danger badge-pill float-right">{{ myHelper::getJmlPesanan() }}</span></a> </li>
-                <li><a href="#">Pesanan Selesai</a></li>
+                <li><a href="{{ route('getListPesanan') }}">List Pesanan <span id="badgeTotal2" class="badge badge-danger badge-pill float-right">{{ getJmlPesanan() }}</span></a> </li>
+                <li><a href="{{ route('kasir.getDataPesanan') }}">Data Pesanan</a></li>
             </ul>
         </li>
 
-        {{-- <li>
-            <a href="javascript:void(0);"><i class="mdi mdi-ballot-recount"></i><span>Stock Opname</span><span
-                    class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-            <ul class="nav-second-level" aria-expanded="false">
-                <li><a href="email-templates-basic.html">Data</a></li>
-                <li><a href="email-templates-alert.html">Tambah</a></li>
-            </ul>
-        </li> --}}
-
+        @endif
+        @if (auth()->user()->jabatan == 'Dapur')
+        <li>
+            <a href="{{ route('dapur.getDataPesanan') }}"><i class="mdi mdi-buffer"></i><span>Data Pesanan</span></a>
+        </li>
         @endif
 
 

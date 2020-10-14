@@ -20,21 +20,23 @@
 <script src="https://apexcharts.com/samples/assets/series1000.js"></script>
 <script src="https://apexcharts.com/samples/assets/ohlc.js"></script> --}}
 
-<script src="{{ asset('pages/jquery.dashboard-3.init.js') }}"></script>
+@yield('script')
 
 <!-- App js -->
 <script src="{{ asset('js/app.js') }}"></script>
+
+@yield('script-bottom')
 
 <script>
     $(document).ready(function() {
         $('#datatable').DataTable();
 
         $('.alert').delay(3000).fadeOut(350);
-        
+
         // Select2
         $(".select2").select2();
         // $(document).ready(function() {
-        //     $('#datatable2').DataTable();  
+        //     $('#datatable2').DataTable();
         // } );
 
         // //Buttons examples

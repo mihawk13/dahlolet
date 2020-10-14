@@ -7,6 +7,7 @@ const formatter = new Intl.NumberFormat('id-ID', {
 function calculate() {
 
     var total_price = 0;
+    var total_qty = 0;
 
     $('.shopping-cart tbody tr').each(function() {
         var row = $(this),
@@ -16,6 +17,7 @@ function calculate() {
         var totalharga = harga * jml;
 
         total_price += totalharga;
+        total_qty += parseInt(jml);
         row.find('.sum').text(formatter.format(totalharga.toFixed()));
 
         $.ajaxSetup({
@@ -48,6 +50,7 @@ function calculate() {
     });
 
     $('.total_harga').text(formatter.format(total_price.toFixed()));
+    $('.total_qty').text(total_qty + ' PCS');
 }
 
 $('.shopping-cart').on('keyup input change', function() {

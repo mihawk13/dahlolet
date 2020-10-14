@@ -4,6 +4,7 @@
 <head>
     @include('layouts.head')
     @yield('head')
+    @livewireStyles
 </head>
 
 <body>
@@ -18,13 +19,13 @@
     <div class="page-wrapper-img">
         <div class="page-wrapper-img-inner">
             <div class="sidebar-user media">
-                <img src="{{ asset('images/users/user-1.jpg') }}" alt="user" class="rounded-circle img-thumbnail mb-1">
+                <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama }}" alt="user" class="rounded-circle img-thumbnail mb-1">
                 <span class="online-icon"><i class="mdi mdi-record text-success"></i></span>
                 <div class="media-body">
                     <h5 class="text-light">{{ Auth::user()->nama }}</h5>
                     <ul class="list-unstyled list-inline mb-0 mt-2">
                         <li class="list-inline-item">
-                            <a href="#" class=""><i class="mdi mdi-account text-light"></i></a>
+                            <a href="{{ route('getProfile') }}" class=""><i class="mdi mdi-account text-light"></i></a>
                         </li>
                         <li class="list-inline-item">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class=""><i class="mdi mdi-power text-danger"></i></a>
@@ -33,7 +34,7 @@
                 </div>
             </div>
             <!-- Page-Title -->
-            @yield('breadcrumb')            
+            @yield('breadcrumb')
             <!--end row-->
             <!-- end page title end breadcrumb -->
         </div>
@@ -65,9 +66,8 @@
         <!--end page-wrapper-inner -->
     </div>
     <!-- end page-wrapper -->
-
     @include('layouts.body')
-    @yield('body')
+    @livewireScripts
 
 </body>
 

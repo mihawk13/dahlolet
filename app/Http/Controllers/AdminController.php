@@ -15,13 +15,8 @@ class AdminController extends Controller
     // Users
     public function getUsers()
     {
-        $jabatan = array(
-            '0' => 'Admin',
-            '1' => 'Kasir',
-            '2' => 'Dapur'
-        );
         $users = DB::table('users')->get();
-        return view('admin.user', compact('users', 'jabatan'));
+        return view('admin.user', compact('users'));
     }
 
     public function postUsers(Request $request)

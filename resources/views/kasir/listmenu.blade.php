@@ -9,7 +9,8 @@
                     <form id="formCariMenu" action="{{ route('cariMenu') }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="PATCH">
-                        <input type="text" placeholder="Cari nama menu..." class="form-control" name="cari" value="{{ $cari }}">
+                        <input type="text" placeholder="Cari nama menu..." class="form-control" name="cari"
+                            value="{{ $cari }}">
                         <a><i class="fas fa-search"></i></a>
                     </form>
                 </li>
@@ -72,7 +73,8 @@
     <div class="col-lg-4">
         <div class="card e-co-product">
             <a>
-                <img src="{{ Storage::url('menu/' . $menu->gambar) }}" width="250" height="250" alt="" class="img-fluid">
+                <img src="{{ Storage::url('menu/' . $menu->gambar) }}" width="250" height="250" alt=""
+                    class="img-fluid">
             </a>
             <div class="card-body text-center product-info">
                 <a href="" class="product-title">{{ $menu->nama }}</a>
@@ -126,6 +128,7 @@
         <input type="hidden" name="qty" value="{{ $menu->qty }}">
     </form>
     @endforeach
+
 </div>
 
 @foreach ($kategori as $kat)
@@ -137,10 +140,10 @@
 @endforeach
 @endsection
 
-@section('body')
+@section('script-bottom')
 <script>
     $(document).ready(function() {
-        $('#kategori').change(function() { // Jika Select Box kode_kelas dipilih
+        $('#kategori').change(function() { // Jika Select Box kategori dipilih
             var kategori = $('#kategori').val();
             document.getElementById("kategoriFrom" + kategori).submit();
          });

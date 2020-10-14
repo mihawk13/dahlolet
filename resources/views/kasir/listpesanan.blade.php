@@ -42,7 +42,7 @@
 @endif
 <!-- alert-->
 <style>
-    .hide{
+    .hide {
         display: none;
     }
 </style>
@@ -50,8 +50,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title mt-0">Shopping Cart</h4>
-                <p class="mb-4 text-muted">Frogetor morden shopping cart.</p>
+                {{-- <h4 class="header-title mt-0">Shopping Cart</h4>
+                <p class="mb-4 text-muted">Frogetor morden shopping cart.</p> --}}
                 <div class="table-responsive shopping-cart">
                     {{-- <form >
                         @csrf
@@ -82,12 +82,13 @@
                                 <td>
                                     <img src="{{ asset($item->gambar) }}" alt="" height="52">
                                     <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">{{ $item->nama }}</a>
+                                        <a href=""
+                                            class="d-inline-block align-middle mb-0 product-name">{{ $item->nama }}</a>
                                         <br>
                                         {{-- <span class="text-muted font-13">size-08 (Model 2019)</span> --}}
                                     </p>
                                 </td>
-                                
+
                                 <td>Rp. {{ number_format($item->harga) }}</td>
                                 <td class="jumlah">
                                     <input class="form-control w-25" type="number" value="{{ $item->qty }}">
@@ -95,7 +96,7 @@
                                 <td class="sum"></td>
                                 <td>
                                     <a href="{{ route('hapusPesanan', $item->id_menu) }}" class="text-dark"><i
-                                            class="mdi mdi-close-circle-outline font-20"></i></a>
+                                            class="mdi mdi-close-circle-outline font-20 text-danger"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -108,47 +109,7 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-6 align-self-center">
-                        <div class="total-payment">
-                            <h4 class="header-title">Total Pembayaran</h4>
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td class="payment-title">ID Pesanan</td>
-                                        <td>-$10.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="payment-title">Tanggal</td>
-                                        <td>{{ date('d-m-Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="payment-title">Nama Pelanggan</td>
-                                        <td><input type="text" class="form-control" placeholder="Masukkan Nama Pelanggan"></td>
-                                    </tr>                       
-                                    <tr>
-                                        <td class="font-weight-bold">Grand Total</td>
-                                        <td class="total_harga font-weight-bold"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mt-4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <a href="{{ route('getListMenu') }}" class="text-info"><i class="fas fa-long-arrow-alt-left mr-1"></i>
-                                        Pilih Menu</a>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <a href="#" class="text-info">Checkout <i
-                                            class="fas fa-long-arrow-alt-right ml-1"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end col-->
-                    
-                </div>
+                @include('kasir.pesanan.pembayaran')
                 <!--end row-->
             </div>
             <!--end card-->
@@ -162,13 +123,13 @@
 
 @endsection
 
-@section('body')
+@section('script-bottom')
 <script src="{{ asset('js/listpesanan.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('#kategori').change(function() { // Jika Select Box kode_kelas dipilih
             var kategori = $('#kategori').val();
-            document.getElementById("kategoriFrom" + kategori).submit();           
+            document.getElementById("kategoriFrom" + kategori).submit();
          });
     } );
 </script>

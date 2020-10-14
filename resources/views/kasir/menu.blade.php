@@ -241,7 +241,7 @@
     </div> <!-- end col -->
 </div> <!-- end row -->
 @endsection
-@section('body')
+@section('script-bottom')
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="{{ asset('vendor/isotope/jquery.isotope.min.js') }}"></script>
 <script src="{{ asset('vendor/lightbox/js/lightbox.min.js') }}"></script>

@@ -16,17 +16,17 @@
 
         <ul class="list-unstyled topbar-nav float-right mb-0">
             {{-- keranjang --}}
-            @if (Auth::user()->jabatan !== 'Admin')
+            @if (Auth::user()->jabatan == 'Kasir')
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect"  href="{{ route('getListPesanan') }}"
                     role="button" >
                     <i class="mdi mdi-cart-arrow-right nav-icon"></i>
-                    <a href="{{ route('getListPesanan') }}" id="badgeTotal" class="badge badge-danger badge-pill noti-icon-badge">{{ myHelper::getJmlPesanan() }}</a>
+                    <a href="{{ route('getListPesanan') }}" id="badgeTotal" class="badge badge-danger badge-pill noti-icon-badge">{{ getJmlPesanan() }}</a>
                 </a>
                 {{-- <div class="dropdown-menu dropdown-menu-right dropdown-lg">
                     <!-- item-->
                     <h6 class="dropdown-item-text">
-                        Keranjang ({{ myHelper::getJmlPesanan() }})
+                        Keranjang ({{ getJmlPesanan() }})
                     </h6>
                     <div class="slimscroll notification-list">
                         <!-- item-->
@@ -49,11 +49,11 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#"
                     role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset('images/users/user-1.jpg') }}" alt="profile-user" class="rounded-circle" />
+                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama }}" alt="profile-user" class="rounded-circle" />
                     <span class="ml-1 nav-user-name hidden-sm"> <i class="mdi mdi-chevron-down"></i> </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="dripicons-user text-muted mr-2"></i> Profile</a>
+                    <a class="dropdown-item" href="{{ route('getProfile') }}"><i class="dripicons-user text-muted mr-2"></i> Profile</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i

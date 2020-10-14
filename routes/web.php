@@ -19,15 +19,16 @@ use Illuminate\Support\Facades\Route;
 //     return view('auth.login');
 // });
 
+Auth::routes();
+
 Route::get('/', 'HomeController@index');
 
 Route::get('resizeImage', 'ImageController@resizeImage');
 Route::post('resizeImagePost', 'ImageController@resizeImagePost')->name('resizeImagePost');
 
-Auth::routes();
+Route::get('/profile', 'HomeController@getProfile')->name('getProfile');
+Route::post('/profile', 'HomeController@postProfile')->name('postProfile');
 
-
-// Route::get('kasir/dashboard', 'HomeController@kasirDashboard')->name('kasir.dashboard')->middleware('isKasir');
 
 // Dashboard Kasir
 Route::middleware('isKasir')->prefix('kasir')->group(function () {
@@ -41,17 +42,28 @@ Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::post('/menu', 'KasirController@postMenu')->name('postMenu');
     Route::patch('/menu', 'KasirController@ubahMenu')->name('ubahMenu');
     Route::put('/menu', 'KasirController@setStatus')->name('setStatus');
-    // Daftar Menu
-    Route::get('/listmenu', 'KasirController@getListMenu')->name('getListMenu');
-    Route::post('/listmenu', 'KasirController@cariKategori')->name('cariKategori');
-    Route::patch('/listmenu', 'KasirController@cariMenu')->name('cariMenu');
-    Route::get('/listpesanan', 'KasirController@getListPesanan')->name('getListPesanan');
-    Route::post('listpesanan', 'KasirController@plusminusListPesanan');
-    Route::get('/listpesanan/{idmenu}', 'KasirController@hapusPesanan')->name('hapusPesanan');
 
-    Route::post('/masukKeranjang', 'KasirController@masukKeranjang')->name('masukKeranjang');
-    Route::post('/kurangiKeranjang', 'KasirController@kurangiKeranjang')->name('kurangiKeranjang');
-    Route::post('/tambahKeranjang', 'KasirController@tambahKeranjang')->name('tambahKeranjang');
+    // Pesanan
+    // List Menu
+    Route::get('/listmenu', 'PesananController@getListMenu')->name('getListMenu');
+    Route::post('/listmenu', 'PesananController@cariKategori')->name('cariKategori');
+    Route::patch('/listmenu', 'PesananController@cariMenu')->name('cariMenu');
+
+
+    Route::post('/masukKeranjang', 'PesananController@masukKeranjang')->name('masukKeranjang');
+    Route::post('/kurangiKeranjang', 'PesananController@kurangiKeranjang')->name('kurangiKeranjang');
+    Route::post('/tambahKeranjang', 'PesananController@tambahKeranjang')->name('tambahKeranjang');
+
+    // List Pesanan
+    Route::get('/listpesanan', 'PesananController@getListPesanan')->name('getListPesanan');
+    Route::post('listpesanan', 'PesananController@plusminusListPesanan');
+    Route::patch('/listpesanan', 'PesananController@postCheckOut')->name('postCheckOut');
+    Route::get('/listpesanan/{idmenu}', 'PesananController@hapusPesanan')->name('hapusPesanan');
+
+    // Data Pesanan
+    Route::get('/datapesanan', 'PesananController@getDataPesanan')->name('kasir.getDataPesanan');
+    Route::get('/datapesanan/invoice/{id}', 'PesananController@getInvoice')->name('getInvoice');
+
 });
 
 // Dashboard Admin
@@ -61,4 +73,18 @@ Route::middleware('isAdmin')->prefix('admin')->group(function () {
     Route::get('/users', 'AdminController@getUsers')->name('getUsers');
     Route::post('/users', 'AdminController@postUsers')->name('postUsers');
     Route::patch('/users', 'AdminController@ubahUsers')->name('ubahUsers');
+});
+
+// Dashboard Dapur
+Route::middleware('isDapur')->prefix('dapur')->group(function () {
+    Route::get('/dashboard', 'DapurController@dashboard')->name('dapur.dashboard');
+    Route::get('/datapesanan', 'DapurController@getDataPesanan')->name('dapur.getDataPesanan');
+
+    Route::get('/datapesanan/invoice/{id}', 'DapurController@getInvoice')->name('dapur.getInvoice');
+
+    Route::get('/dashboard/siapkan/{id}', 'DapurController@siapkanPesanan')->name('siapkanPesanan');
+    Route::get('/dashboard/selesai/{id}', 'DapurController@selesaiPesanan')->name('selesaiPesanan');
+
+
+    Route::get('/pesanan_card', 'DapurController@getPesananCard')->name('getPesananCard');
 });

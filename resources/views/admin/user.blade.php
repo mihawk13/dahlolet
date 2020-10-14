@@ -36,8 +36,8 @@
                                         <label>Jabatan</label>
                                         <select name="jabatan" class="form-control">
                                             <option value="">--Pilih Jabatan--</option>
-                                            @foreach ($jabatan as $jab => $jabs)
-                                            <option value="{{ $jabs }}">{{ $jabs }}</option>
+                                            @foreach (getJabatan() as $jab)
+                                            <option value="{{ $jab }}">{{ $jab }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -164,12 +164,9 @@
                                                 <label>Jabatan</label>
                                                 <select name="jabatan" class="form-control">
                                                     <option value="">--Pilih Jabatan--</option>
-                                                    @foreach ($jabatan as $jab => $jabs)
-                                                        @if ($jabs == $user->jabatan)
-                                                        <option selected value="{{ $jabs }}">{{ $jabs }}</option>
-                                                        @else
-                                                        <option value="{{ $jabs }}">{{ $jabs }}</option>
-                                                        @endif
+                                                    @foreach (getJabatan() as $jab)
+                                                    <option {{ ($user->jabatan == $jab) ? 'selected' : '' }}
+                                                        value="{{ $jab }}">{{ $jab }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
