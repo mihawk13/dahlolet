@@ -11,6 +11,8 @@ use Image;
 use App\Cart;
 use App\Menu;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 // use myHelpers;
 
 class KasirController extends Controller
@@ -75,21 +77,16 @@ class KasirController extends Controller
                 'gambar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
+            $imagename = $request->id . '.' . $request->file('gambar')->extension();
+            // utk hosting, public dihapus
+            Storage::putFileAs('public/menu', $request->file('gambar'), $imagename);
 
-            $destinationPath = public_path('images\menu');
-            $image = $request->file('gambar');
-            $input['imagename'] = $request->id . '.' . $image->extension();
-            $img = Image::make($image->path());
-            $img->resize(400, 400, function () {
-            })->save($destinationPath . '/' . $input['imagename']);
-
-            $gambar = 'images/menu/' . $input['imagename'];
             Menu::insert([
                 'id_menu' => $request->id,
                 'id_kategori' => $request->kategori,
                 'nama' => $request->nama,
                 'harga' => $request->harga,
-                'gambar' => $gambar,
+                'gambar' => $imagename,
                 'status' => 1,
             ]);
             return redirect()->back()->with('berhasil', 'Data menu berhasil ditambah!');
@@ -107,23 +104,21 @@ class KasirController extends Controller
                 ]);
                 // hapus gambar menu sebelumnya
                 $menu = Menu::where('id_menu', $request->id)->first();
-                unlink(public_path($menu->gambar));
+                // Storage::delete('menu' . $menu->gambar);
+                unlink(public_path('storage/menu/' . $menu->gambar));
                 // File::unlink(public_path($menu->gambar));
+                // hosting
+                // unlink('/home/bbdb4393/public_html/dahlolet/storage/menu/' . $menu->gambar);
 
-                $destinationPath = public_path('images/menu');
-                $image = $request->file('gambar');
-                $input['imagename'] = $request->id . '.' . $image->extension();
-                $img = Image::make($image->path());
-                $img->resize(400, 400, function () {
-                })->save($destinationPath . '/' . $input['imagename']);
-
-                $gambar = 'images/menu/' . $input['imagename'];
+                $imagename = $request->id . '.' . $request->file('gambar')->extension();
+                // utk hosting, public dihapus
+                Storage::putFileAs('public/menu', $request->file('gambar'), $imagename);
 
                 Menu::where('id_menu', $request->id)->update([
                     'id_kategori' => $request->kategori,
                     'nama' => $request->nama,
                     'harga' => $request->harga,
-                    'gambar' => $gambar,
+                    'gambar' => $imagename,
                 ]);
             } else {
                 Menu::where('id_menu', $request->id)->update([

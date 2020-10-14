@@ -133,7 +133,7 @@
                                 <center>
                                     <div class="image-inner">
                                         <a class="btn btn-sm btn-info" data-toggle="modal" data-placement="left"
-                                            title="{{ $menu->nama }}" href="{{ asset($menu->gambar) }}"
+                                            title="{{ $menu->nama }}" href="{{ Storage::url('menu/' . $menu->gambar) }}"
                                             data-lightbox="gallery-group-1">
                                             <span class="s-icon"><i class="fa fa-eye"></i></span></a>
                                     </div>

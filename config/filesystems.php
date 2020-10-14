@@ -45,11 +45,15 @@ return [
 
         'local' => [
             'driver' => 'local',
+            // hosting
+            // 'root' => '/home/bbdb4393/public_html/dahlolet/storage',
             'root' => storage_path('app'),
         ],
 
         'public' => [
             'driver' => 'local',
+            // hosting
+            // 'root' => '/home/bbdb4393/public_html/dahlolet/storage',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',

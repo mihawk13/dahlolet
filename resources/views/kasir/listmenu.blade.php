@@ -14,8 +14,8 @@
                     </form>
                 </li>
             </div>
-            <div class="float-right  mt-2">
-                <li class="app-kategori">
+            <div class="float-right mt-2">
+                <li class="app-kategori" style="list-style-type: none;">
                     <form role="search" class="">
                         <select name="kategori" id="kategori" class="select2 form-control custom-select">
                             <option value="">--Pilih Kategori--</option>
@@ -72,7 +72,7 @@
     <div class="col-lg-4">
         <div class="card e-co-product">
             <a>
-                <img src="{{ asset($menu->gambar) }}" alt="" class="img-fluid">
+                <img src="{{ Storage::url('menu/' . $menu->gambar) }}" width="250" height="250" alt="" class="img-fluid">
             </a>
             <div class="card-body text-center product-info">
                 <a href="" class="product-title">{{ $menu->nama }}</a>
@@ -142,7 +142,7 @@
     $(document).ready(function() {
         $('#kategori').change(function() { // Jika Select Box kode_kelas dipilih
             var kategori = $('#kategori').val();
-            document.getElementById("kategoriFrom" + kategori).submit();           
+            document.getElementById("kategoriFrom" + kategori).submit();
          });
     } );
 </script>
