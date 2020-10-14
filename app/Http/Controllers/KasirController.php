@@ -42,8 +42,7 @@ class KasirController extends Controller
     {
         try {
             DB::table('kategori')->where('id_kategori', $request->id)->update([
-                'nama' => $request->nama,
-                'status' => $request->status,
+                'nama' => $request->nama
             ]);
             return redirect()->back()->with('berhasil', 'Data kategori berhasil diubah!');
         } catch (\Exception $e) {
