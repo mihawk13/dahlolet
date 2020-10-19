@@ -1,9 +1,10 @@
 @foreach ($trans as $trx)
 <div class="col-lg-4">
     <div class="card">
-        <div class="card-header bg-info d-inline-flex">
+        <div class="card-header bg-info d-flex">
             <div style="flex: 0.9;">
-                <h5 class="text-white">Nama Pelanggan: {{ $trx->nama_pelanggan }}</h5>
+                <h5 class="text-white">No Meja: {{ $trx->no_meja }}</h5>
+                <h5 class="text-white">Pelanggan: {{ $trx->nama_pelanggan }}</h5>
             </div>
             <div style="flex: 0.1">
                 <h5 class="@if($trx->status == 'Dipesan') text-warning @else text-primary @endif">{{ $trx->status }}

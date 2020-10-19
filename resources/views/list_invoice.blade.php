@@ -28,11 +28,12 @@
 <!--end card-body-->
 <div class="card-body">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-6">
             <div class="">
                 <h6 class="mb-0"><b>Tanggal & Waktu Order :</b>
-                    {{ \Carbon\Carbon::parse($trx->created_at)->translatedFormat('d M Y H:i') }}</h6>
-                <h6><b>Nama Pelanggan :</b> {{ $trx->nama_pelanggan }}</h6><br><br>
+                    {{ \Carbon\Carbon::parse($trx->created_at)->translatedFormat('d M Y H:i') }} WITA</h6>
+                <h6><b>No Meja :</b> {{ $trx->no_meja }}</h6>
+                <h6><b>Nama Pelanggan :</b> {{ $trx->nama_pelanggan }}</h6><br>
             </div>
         </div>
     </div>

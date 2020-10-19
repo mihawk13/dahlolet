@@ -33,36 +33,27 @@ Route::post('/profile', 'HomeController@postProfile')->name('postProfile');
 // Dashboard Kasir
 Route::middleware('isKasir')->prefix('kasir')->group(function () {
     Route::get('/dashboard', 'KasirController@Dashboard')->name('kasir.dashboard');
-    // Kategori
-    Route::get('/kategori', 'KasirController@getKategori')->name('getKategori');
-    Route::post('/kategori', 'KasirController@postKategori')->name('postKategori');
-    Route::patch('/kategori', 'KasirController@ubahKategori')->name('ubahKategori');
-    // Menu
-    Route::get('/menu', 'KasirController@getMenu')->name('getMenu');
-    Route::post('/menu', 'KasirController@postMenu')->name('postMenu');
-    Route::patch('/menu', 'KasirController@ubahMenu')->name('ubahMenu');
-    Route::put('/menu', 'KasirController@setStatus')->name('setStatus');
 
     // Pesanan
     // List Menu
-    Route::get('/listmenu', 'PesananController@getListMenu')->name('getListMenu');
-    Route::post('/listmenu', 'PesananController@cariKategori')->name('cariKategori');
-    Route::patch('/listmenu', 'PesananController@cariMenu')->name('cariMenu');
+    Route::get('/listmenu', 'KasirController@getListMenu')->name('getListMenu');
+    Route::post('/listmenu', 'KasirController@cariKategori')->name('cariKategori');
+    Route::patch('/listmenu', 'KasirController@cariMenu')->name('cariMenu');
 
 
-    Route::post('/masukKeranjang', 'PesananController@masukKeranjang')->name('masukKeranjang');
-    Route::post('/kurangiKeranjang', 'PesananController@kurangiKeranjang')->name('kurangiKeranjang');
-    Route::post('/tambahKeranjang', 'PesananController@tambahKeranjang')->name('tambahKeranjang');
+    Route::post('/masukKeranjang', 'KasirController@masukKeranjang')->name('masukKeranjang');
+    Route::post('/kurangiKeranjang', 'KasirController@kurangiKeranjang')->name('kurangiKeranjang');
+    Route::post('/tambahKeranjang', 'KasirController@tambahKeranjang')->name('tambahKeranjang');
 
     // List Pesanan
-    Route::get('/listpesanan', 'PesananController@getListPesanan')->name('getListPesanan');
-    Route::post('listpesanan', 'PesananController@plusminusListPesanan');
-    Route::patch('/listpesanan', 'PesananController@postCheckOut')->name('postCheckOut');
-    Route::get('/listpesanan/{idmenu}', 'PesananController@hapusPesanan')->name('hapusPesanan');
+    Route::get('/listpesanan', 'KasirController@getListPesanan')->name('getListPesanan');
+    Route::post('listpesanan', 'KasirController@plusminusListPesanan');
+    Route::patch('/listpesanan', 'KasirController@postCheckOut')->name('postCheckOut');
+    Route::get('/listpesanan/{idmenu}', 'KasirController@hapusPesanan')->name('hapusPesanan');
 
     // Data Pesanan
-    Route::get('/datapesanan', 'PesananController@getDataPesanan')->name('kasir.getDataPesanan');
-    Route::get('/datapesanan/invoice/{id}', 'PesananController@getInvoice')->name('getInvoice');
+    Route::get('/datapesanan', 'KasirController@getDataPesanan')->name('kasir.getDataPesanan');
+    Route::get('/datapesanan/invoice/{id}', 'KasirController@getInvoice')->name('getInvoice');
 
 });
 
@@ -73,6 +64,21 @@ Route::middleware('isAdmin')->prefix('admin')->group(function () {
     Route::get('/users', 'AdminController@getUsers')->name('getUsers');
     Route::post('/users', 'AdminController@postUsers')->name('postUsers');
     Route::patch('/users', 'AdminController@ubahUsers')->name('ubahUsers');
+    Route::delete('/users', 'AdminController@hapusUsers')->name('hapusUsers');
+
+    // Kategori
+    Route::get('/kategori', 'AdminController@getKategori')->name('getKategori');
+    Route::post('/kategori', 'AdminController@postKategori')->name('postKategori');
+    Route::patch('/kategori', 'AdminController@ubahKategori')->name('ubahKategori');
+
+    // Menu
+    Route::get('/menu', 'AdminController@getMenu')->name('getMenu');
+    Route::post('/menu', 'AdminController@postMenu')->name('postMenu');
+    Route::patch('/menu', 'AdminController@ubahMenu')->name('ubahMenu');
+    Route::put('/menu', 'AdminController@setStatus')->name('setStatus');
+
+    Route::get('/datapesanan', 'AdminController@getDataPesanan')->name('admin.getDataPesanan');
+    Route::get('/datapesanan/invoice/{id}', 'AdminController@getInvoice')->name('admin.getInvoice');
 });
 
 // Dashboard Dapur

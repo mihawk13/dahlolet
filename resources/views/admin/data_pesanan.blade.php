@@ -7,7 +7,7 @@
             <h4 class="page-title mb-2"><i class="mdi mdi-cart-arrow-right"></i> Data Pesanan</h4>
             <div class="">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Kasir</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
                     <li class="breadcrumb-item active">Pesanan</li>
                 </ol>
             </div>
@@ -68,7 +68,7 @@
                             <td>{{ $trx->status }}</td>
                             <td>
                                 <center>
-                                    <a href="{{ route('getInvoice', $trx->id) }}" style="color:white" class="btn btn-warning btn-sm"
+                                    <a href="{{ route('admin.getInvoice', $trx->id) }}" style="color:white" class="btn btn-warning btn-sm"
                                         data-toggle="tooltip" data-placement="left" title="Invoice Pesanan">
                                         <i class="fa fa-eye"></i>
                                     </a>

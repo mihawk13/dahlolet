@@ -11,6 +11,15 @@
         <li>
             <a href="{{ route('getUsers') }}"><i class="mdi mdi-clipboard-account-outline"></i><span>User</span></a>
         </li>
+        <li>
+            <a href="{{ route('getKategori') }}"><i class="mdi mdi-buffer"></i><span>Kategori</span></a>
+        </li>
+        <li>
+            <a href="{{ route('getMenu') }}"><i class="mdi mdi-food"></i><span>Menu</span></a>
+        </li>
+        <li>
+            <a href="{{ route('admin.getDataPesanan') }}"><i class="mdi mdi-cards-playing-outline"></i><span>Data Pesanan</span></a>
+        </li>
 
         {{-- <li>
             <a href="javascript: void(0);"><i class="mdi mdi-book-open-page-variant"></i><span>Laporan</span><span
@@ -30,13 +39,6 @@
         </li> --}}
         @endif
         @if (auth()->user()->jabatan == 'Kasir')
-        <li>
-            <a href="{{ route('getKategori') }}"><i class="mdi mdi-buffer"></i><span>Kategori</span></a>
-        </li>
-
-        <li>
-            <a href="{{ route('getMenu') }}"><i class="mdi mdi-cards-playing-outline"></i><span>Menu</span></a>
-        </li>
 
         <li>
             <a href="javascript: void(0);"><i class="mdi mdi-cart-arrow-right"></i><span>Pesanan</span><span

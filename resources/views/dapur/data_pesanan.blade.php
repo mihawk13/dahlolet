@@ -49,7 +49,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Waktu Pemesanan</th>
+                            <th class="text-center">No Meja</th>
+                            <th class="text-center">Waktu Pemesanan</th>
                             <th>Nama Pelanggan</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -61,7 +62,8 @@
                         @foreach ($trans as $trx)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ \Carbon\Carbon::parse($trx->created_at)->translatedFormat('d M Y H:i') }}</td>
+                            <td class="text-center">{{ $trx->no_meja }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($trx->created_at)->translatedFormat('d M Y H:i') }}</td>
                             <td>{{ $trx->nama_pelanggan }}</td>
                             <td>{{ $trx->status }}</td>
                             <td>

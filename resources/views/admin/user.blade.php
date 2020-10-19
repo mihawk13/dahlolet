@@ -131,9 +131,39 @@
                                         title="Ubah Data User">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    <a type="button" style="color:white" class="btn btn-danger btn-sm"
+                                        data-toggle="modal" data-target=".hapus{{ $user->id }}" data-placement="left"
+                                        title="Hapus Data User">
+                                        <i class="fa fa-times"></i>
+                                    </a>
                                 </center>
                             </td>
                         </tr>
+
+                        <!-- modal hapus -->
+                        <div class="modal fade hapus{{ $user->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">Anda yakin menghapus user {{ $user->nama }}?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('hapusUsers') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success" name="hapus">Ya</button>
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Tidak</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal hapus -->
 
                         <!-- modal ubah -->
                         <div class="modal fade ubah{{ $user->id }}" tabindex="-1" role="dialog" aria-hidden="true">

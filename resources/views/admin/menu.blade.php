@@ -67,7 +67,7 @@
             <h4 class="page-title mb-2"><i class="mdi mdi-cards-playing-outline"></i> Data Menu</h4>
             <div class="">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Kasir</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Admin</a></li>
                     <li class="breadcrumb-item active">Menu</li>
                 </ol>
             </div>

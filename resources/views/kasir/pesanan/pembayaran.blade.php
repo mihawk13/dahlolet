@@ -11,6 +11,10 @@
                         <td>{{ \Carbon\Carbon::parse(date('d-m-Y'))->translatedFormat('d F Y') }}</td>
                     </tr>
                     <tr>
+                        <td class="payment-title">No Meja</td>
+                        <td><input name="no_meja" type="text" class="form-control" placeholder="Masukkan No Meja" required></td>
+                    </tr>
+                    <tr>
                         <td class="payment-title">Nama Pelanggan</td>
                         <td><input name="nama_pelanggan" type="text" class="form-control" placeholder="Masukkan Nama Pelanggan" required></td>
                     </tr>
