@@ -131,11 +131,14 @@
                                         title="Ubah Data User">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    @if ($user->id !== 1)
                                     <a type="button" style="color:white" class="btn btn-danger btn-sm"
                                         data-toggle="modal" data-target=".hapus{{ $user->id }}" data-placement="left"
                                         title="Hapus Data User">
                                         <i class="fa fa-times"></i>
                                     </a>
+                                    @endif
+
                                 </center>
                             </td>
                         </tr>

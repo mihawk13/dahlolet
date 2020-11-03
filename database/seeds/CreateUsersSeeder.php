@@ -13,18 +13,18 @@ class CreateUsersSeeder extends Seeder
     {
         $user = [
             [
-                'nama' => 'Kasir',
-                'telp' => '081234567890',
-                'username' => 'kasir',
-                'password' => bcrypt('kasir'),
-                'jabatan' => 'Kasir',
-            ],
-            [
                 'nama' => 'Admin',
                 'telp' => '087763123321',
                 'username' => 'admin',
                 'password' => bcrypt('admin'),
                 'jabatan' => 'Admin',
+            ],
+            [
+                'nama' => 'Kasir',
+                'telp' => '081234567890',
+                'username' => 'kasir',
+                'password' => bcrypt('kasir'),
+                'jabatan' => 'Kasir',
             ],
             [
                 'nama' => 'Dapur',
