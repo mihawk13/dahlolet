@@ -45,7 +45,7 @@
                     class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
             <ul class="nav-second-level" aria-expanded="false">
                 <li><a href="{{ route('getListMenu') }}">List Menu</a></li>
-                <li><a href="{{ route('getListPesanan') }}">List Pesanan <span id="badgeTotal2" class="badge badge-danger badge-pill float-right">{{ getJmlPesanan() }}</span></a> </li>
+                <li><a href="{{ route('getListPesanan') }}">Keranjang <span id="badgeTotal2" class="badge badge-danger badge-pill float-right">{{ getJmlPesanan() }}</span></a> </li>
                 <li><a href="{{ route('kasir.getDataPesanan') }}">Data Pesanan</a></li>
             </ul>
         </li>

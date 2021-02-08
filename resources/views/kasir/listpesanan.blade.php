@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title mb-2"><i class="mdi mdi-cart-arrow-right"></i> List Pesanan</h4>
+            <h4 class="page-title mb-2"><i class="mdi mdi-cart-arrow-right"></i> Keranjang</h4>
             <div class="">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Kasir</a></li>

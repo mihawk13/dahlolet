@@ -87,28 +87,26 @@
     </div>
     <!--end col-->
 </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Grafik Penjualan Bulan
+                    {{ \Carbon\Carbon::parse(date('M'))->translatedFormat('F') . ' ' . date('Y') }}</h4>
+                <div class="apexchart-wrapper chart-demo">
+                    <div id="e-dash2" class="chart-gutters"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
 @endsection
 
 @section('script')
 {{-- <script src="{{ asset('pages/jquery.dashboard-3.init.js') }}"></script> --}}
 <script>
-    $(document).ready(function() {
-        var srs = [];
-        var mnth = [];
-        fetch("{{ env('APP_URL') }}" + '/api/grafik')
-        .then(response => response.json())
-        .then(data => {
-            // console.log(JSON.stringify(data))
-            // console.log(data[0].total);
-            for (let i = 0; i < data.length; i++) {
-                srs.push(data[i].total)
-                var tgl = new Date(data[i].tanggal);
-                // console.log(tgl.getDate());
-                mnth.push(tgl.getDate())
-
-            }
-        });
-
+    function grafikPendapatan(srs, mnth) {
         var options = {
 
         chart: {
@@ -118,7 +116,7 @@
         plotOptions: {
             bar: {
             columnWidth: '50%',
-            endingShape: 'rounded'
+            endingShape: 'flat'
             }
         },
         dataLabels: {
@@ -128,7 +126,7 @@
             width: 2
         },
         series: [{
-            name: 'Revenue',
+            name: 'Pendapatan',
             data: srs,
         }],
         grid: {
@@ -172,6 +170,108 @@
 
 
         chart.render();
+    }
+
+    function grafikPenjualan(srs, mnth) {
+        var options = {
+
+        chart: {
+            height: 350,
+            type: 'line',
+        },
+        plotOptions: {
+            bar: {
+            columnWidth: '50%',
+            endingShape: 'flat'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: 2
+        },
+        series: [{
+            name: 'Jumlah',
+            data: srs,
+        }],
+        grid: {
+            row: {
+            colors: ['#fff', '#f7f8f9']
+            }
+        },
+        xaxis: {
+            labels: {
+            rotate: -45
+            },
+            categories: mnth,
+        },
+        yaxis: {
+            labels: {
+            formatter: function (value) {
+                return value ;
+            }
+            },
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+            shade: 'light',
+            type: "horizontal",
+            shadeIntensity: 0.25,
+            gradientToColors: undefined,
+            inverseColors: true,
+            opacityFrom: 0.85,
+            opacityTo: 0.85,
+            stops: [50, 0, 100]
+            },
+        },
+
+        }
+
+        var chart = new ApexCharts(
+        document.querySelector("#e-dash2"),
+        options
+        );
+
+
+        chart.render();
+    }
+
+    $(document).ready(function() {
+        var srs1 = [];
+        var mnth1 = [];
+        var srs2 = [];
+        var mnth2 = [];
+
+        fetch("{{ env('APP_URL') }}" + '/api/grafik')
+        .then(response => response.json())
+        .then(data => {
+            // console.log(JSON.stringify(data))
+            // console.log(data[0].total);
+            for (let i = 0; i < data.length; i++) {
+                srs1.push(data[i].total)
+                var tgl = new Date(data[i].tanggal);
+                // console.log(tgl.getDate());
+                mnth1.push(tgl.getDate())
+            }
+            grafikPendapatan(srs1, mnth1);
+        });
+
+
+        fetch("{{ env('APP_URL') }}" + '/api/grafikPenjualan')
+        .then(response => response.json())
+        .then(data => {
+            // console.log(JSON.stringify(data))
+            // console.log(data[0].total);
+            for (let i = 0; i < data.length; i++) {
+                srs2.push(data[i].jml)
+                var tgl = new Date(data[i].tanggal);
+                // console.log(tgl.getDate());
+                mnth2.push(tgl.getDate())
+            }
+            grafikPenjualan(srs2, mnth2);
+        });
 
     })
 </script>
