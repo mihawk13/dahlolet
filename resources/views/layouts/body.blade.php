@@ -15,10 +15,7 @@
 <script src="{{ asset('vendor/datatables/responsive.bootstrap4.min.js') }}"></script> --}}
 
 <script src="{{ asset('vendor/moment/moment.js') }}"></script>
-<script src="{{ asset('vendor/apexcharts/apexcharts.min.js') }}"></script>
-{{-- <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
-<script src="https://apexcharts.com/samples/assets/series1000.js"></script>
-<script src="https://apexcharts.com/samples/assets/ohlc.js"></script> --}}
+
 
 @yield('script')
 

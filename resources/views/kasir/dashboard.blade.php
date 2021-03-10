@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+<link rel="stylesheet" href="{{ asset('vendor/morris/morris.css') }}">
+@endsection
+
 @section('breadcrumb')
 <div class="row">
     <div class="col-sm-12">
@@ -79,12 +83,11 @@
             <div class="card-body">
                 <h4 class="mt-0 header-title">Grafik Pendapatan Perhari Bulan
                     {{ \Carbon\Carbon::parse(date('M'))->translatedFormat('F') . ' ' . date('Y') }}</h4>
-                <div class="apexchart-wrapper chart-demo">
-                    <div id="e-dash1" class="chart-gutters"></div>
-                </div>
+                <div id="grfPendapatan" class="chart-gutters"></div>
             </div>
         </div>
     </div>
+    <!--end col-->
 </div>
 <div class="row">
     <div class="col-12">
@@ -92,155 +95,77 @@
             <div class="card-body">
                 <h4 class="mt-0 header-title">Grafik Penjualan Bulan
                     {{ \Carbon\Carbon::parse(date('M'))->translatedFormat('F') . ' ' . date('Y') }}</h4>
-                <div class="apexchart-wrapper chart-demo">
-                    <div id="e-dash2" class="chart-gutters"></div>
-                </div>
+                <div id="grfPenjualan" class="chart-gutters"></div>
             </div>
         </div>
     </div>
+    <!--end col-->
 </div>
 @endsection
 
 @section('script')
-{{-- <script src="{{ asset('pages/jquery.dashboard-3.init.js') }}"></script> --}}
+<script src="{{ asset('vendor/morris/raphael-min.js') }}"></script>
+<script src="{{ asset('vendor/morris/morris.min.js') }}"></script>
+
 <script>
-    function grafikPendapatan(srs, mnth) {
-        var options = {
-
-        chart: {
-            height: 350,
-            type: 'bar',
-        },
-        plotOptions: {
-            bar: {
-            columnWidth: '50%',
-            endingShape: 'flat'
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            width: 2
-        },
-        series: [{
-            name: 'Pendapatan',
-            data: srs,
-        }],
-        grid: {
-            row: {
-            colors: ['#fff', '#f7f8f9']
-            }
-        },
-        xaxis: {
-            labels: {
-            rotate: -45
-            },
-            categories: mnth,
-        },
-        yaxis: {
-            labels: {
-            formatter: function (value) {
-                return "Rp. " + value ;
-            }
-            },
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-            shade: 'light',
-            type: "horizontal",
-            shadeIntensity: 0.25,
-            gradientToColors: undefined,
-            inverseColors: true,
-            opacityFrom: 0.85,
-            opacityTo: 0.85,
-            stops: [50, 0, 100]
-            },
-        },
-
+    function number_format (number, decimals, dec_point, thousands_sep) {
+        // Strip all characters but numerical ones.
+        number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function (n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + Math.round(n * k) / k;
+            };
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
         }
-
-        var chart = new ApexCharts(
-        document.querySelector("#e-dash1"),
-        options
-        );
-
-
-        chart.render();
+        if ((s[1] || '').length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1).join('0');
+        }
+        return s.join(dec);
     }
 
-    function grafikPenjualan(srs, mnth) {
-        var options = {
-
-        chart: {
-            height: 350,
-            type: 'line',
-        },
-        plotOptions: {
-            bar: {
-            columnWidth: '50%',
-            endingShape: 'flat'
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            width: 2
-        },
-        series: [{
-            name: 'Jumlah',
+    function grafikPendapatan(srs) {
+        Morris.Bar({
+            element: 'grfPendapatan',
             data: srs,
-        }],
-        grid: {
-            row: {
-            colors: ['#fff', '#f7f8f9']
-            }
-        },
-        xaxis: {
-            labels: {
-            rotate: -45
-            },
-            categories: mnth,
-        },
-        yaxis: {
-            labels: {
-            formatter: function (value) {
-                return value ;
-            }
-            },
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-            shade: 'light',
-            type: "horizontal",
-            shadeIntensity: 0.25,
-            gradientToColors: undefined,
-            inverseColors: true,
-            opacityFrom: 0.85,
-            opacityTo: 0.85,
-            stops: [50, 0, 100]
-            },
-        },
+            xkey: 'tanggal',
+            ykeys: ['value'],
+            labels: ['Pendapatan'],
+            parseTime: false,
+            yLabelFormat: function (y) { return 'Rp. ' + number_format(y); }
+        });
+    }
 
-        }
-
-        var chart = new ApexCharts(
-        document.querySelector("#e-dash2"),
-        options
-        );
-
-
-        chart.render();
+    function grafikPenjualan(srs) {
+        // console.log(srs)
+        new Morris.Line({
+            // ID of the element in which to draw the chart.
+            element: 'grfPenjualan',
+            // Chart data records -- each entry in this array corresponds to a point on
+            // the chart.
+            data: srs,
+            // The name of the data record attribute that contains x-values.
+            xkey: 'tanggal',
+            // A list of names of data record attributes that contain y-values.
+            ykeys: ['value'],
+            // Labels for the ykeys -- will be displayed when you hover over the
+            // chart.
+            labels: ['Transaksi'],
+            parseTime: false,
+        });
     }
 
     $(document).ready(function() {
         var srs1 = [];
-        var mnth1 = [];
         var srs2 = [];
-        var mnth2 = [];
 
         fetch("{{ env('APP_URL') }}" + '/api/grafik')
         .then(response => response.json())
@@ -248,27 +173,29 @@
             // console.log(JSON.stringify(data))
             // console.log(data[0].total);
             for (let i = 0; i < data.length; i++) {
-                srs1.push(data[i].total)
                 var tgl = new Date(data[i].tanggal);
                 // console.log(tgl.getDate());
-                mnth1.push(tgl.getDate())
+                // mnth1.push(tgl.getDate())
+                srs1.push({
+                    tanggal: tgl.getDate(),
+                    value: data[i].total
+                })
             }
-            grafikPendapatan(srs1, mnth1);
+            grafikPendapatan(srs1);
         });
 
 
         fetch("{{ env('APP_URL') }}" + '/api/grafikPenjualan')
         .then(response => response.json())
         .then(data => {
-            // console.log(JSON.stringify(data))
-            // console.log(data[0].total);
             for (let i = 0; i < data.length; i++) {
-                srs2.push(data[i].jml)
                 var tgl = new Date(data[i].tanggal);
-                // console.log(tgl.getDate());
-                mnth2.push(tgl.getDate())
+                srs2.push({
+                    tanggal: tgl.getDate(),
+                    value: data[i].jml
+                })
             }
-            grafikPenjualan(srs2, mnth2);
+            grafikPenjualan(srs2);
         });
 
     })
