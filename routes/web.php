@@ -94,3 +94,10 @@ Route::middleware('isDapur')->prefix('dapur')->group(function () {
 
     Route::get('/pesanan_card', 'DapurController@getPesananCard')->name('getPesananCard');
 });
+
+Route::get('/lap_penjualan', 'LaporanController@penjualan')->name('lap_penjualan');
+Route::post('/lap_penjualan', 'LaporanController@penjualan_filter')->name('lap_penjualan');
+Route::get('/lap_penjualan_harian', 'LaporanController@penjualan_harian')->name('lap_penjualan_harian');
+Route::post('/lap_penjualan_harian', 'LaporanController@penjualan_harian_filter')->name('lap_penjualan_harian');
+Route::get('/lap_penjualan_kategori', 'LaporanController@penjualan_kategori')->name('lap_penjualan_kategori');
+Route::post('/lap_penjualan_kategori', 'LaporanController@penjualan_kategori_filter')->name('lap_penjualan_kategori');
