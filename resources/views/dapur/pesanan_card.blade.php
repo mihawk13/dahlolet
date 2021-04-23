@@ -1,29 +1,34 @@
 @foreach ($trans as $trx)
 <div class="col-lg-4">
     <div class="card">
-        <div class="card-header bg-info d-flex">
-            <div style="flex: 0.9;">
-                <h5 class="text-white">No Meja: {{ $trx->no_meja }}</h5>
-                <h5 class="text-white">Pelanggan: {{ $trx->nama_pelanggan }}</h5>
+        <div class="card-body">
+            <h4 class="mt-0 header-title">{{ $trx->nama_pelanggan }} || Meja {{ $trx->no_meja }}</h4>
+            {{-- <p class="text-muted mb-4 font-13">Add an optional header and/or footer within a card.</p> --}}
+            <div class="card border mb-0 text-center">
+                <div class="card-header @if($trx->status == 'Dipesan') text-warning @else text-primary @endif">
+                    {{ $trx->status }}
+                </div>
+                <div class="card-body">
+                    @foreach ($trx->detail as $dtl)
+                    <h3 class="card-title">{{ $dtl->menu->nama . ' x ' . $dtl->qty }}</h3>
+                    @endforeach
+                    @if ($trx->status == 'Dipesan')
+                    <a href="{{ route('siapkanPesanan', $trx->id) }}" class="btn btn-primary btn-sm text-white">Siapkan
+                        Pesanan</a>
+                    @else
+                    <a href="{{ route('selesaiPesanan', $trx->id) }}"
+                        class="btn btn-success btn-sm text-white">Selesai</a>
+                    @endif
+                </div>
+                <div class="card-footer text-muted">
+                    {{ $trx->created_at->diffForHumans() }}
+                </div>
             </div>
-            <div style="flex: 0.1">
-                <h5 class="@if($trx->status == 'Dipesan') text-warning @else text-primary @endif">{{ $trx->status }}
-                </h5>
-            </div>
+            <!--end card-->
         </div>
-        <div class="card-body text-center">
-            @foreach ($trx->detail as $dtl)
-            <p class="font-20">{{ $dtl->menu->nama . ' x ' . $dtl->qty }}</p>
-            @endforeach
-        </div>
-        <div class="card-footer text-right">
-            @if ($trx->status == 'Dipesan')
-            <a href="{{ route('siapkanPesanan', $trx->id) }}" class="btn btn-primary btn-sm text-white">Siapkan
-                Pesanan</a>
-            @else
-            <a href="{{ route('selesaiPesanan', $trx->id) }}" class="btn btn-success btn-sm text-white">Selesai</a>
-            @endif
-        </div>
+        <!--end card-body-->
     </div>
+    <!--end card-->
 </div>
+<!--end col-->
 @endforeach

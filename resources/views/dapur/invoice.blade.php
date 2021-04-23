@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts-top.app')
 
 @section('breadcrumb')
 <div class="row">

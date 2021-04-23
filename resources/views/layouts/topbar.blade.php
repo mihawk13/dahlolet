@@ -4,7 +4,7 @@
 
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 <span>
                     <img src="{{ asset('images/logo-sm.png') }}" alt="logo-small" class="logo-sm">
                 </span>

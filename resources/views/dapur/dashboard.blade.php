@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts-top.app')
 
 @section('breadcrumb')
 <div class="row">
@@ -19,19 +19,6 @@
 @endsection
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="float-right">
-                    <i class="fa fa-cart-plus font-24 text-secondary"></i>
-                </div>
-                <h3 class="font-weight-bold">Pesanan Baru</h3>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- alert -->
 @if (session()->has('gagal'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
